@@ -32,6 +32,7 @@ CHASSIS_INFO_CARD_NUM_FIELD = 'module_num'
 CHASSIS_INFO_SERIAL_FIELD = 'serial'
 CHASSIS_INFO_MODEL_FIELD = 'model'
 CHASSIS_INFO_REV_FIELD = 'revision'
+CHASSIS_INFO_SYS_DISPLAY_FIELD = 'sys_display'
 
 CHASSIS_LOAD_ERROR = 1
 
@@ -64,18 +65,19 @@ def try_get(callback, *args, **kwargs):
 
 #
 # Functions
-# 
+#
 
 def provision_db(platform_chassis, log):
     # Init state db connection
     state_db = daemon_base.db_connect("STATE_DB")
     chassis_table = swsscommon.Table(state_db, CHASSIS_INFO_TABLE)
 
-    # Populate DB with chassis hardware info 
+    # Populate DB with chassis hardware info
     fvs = swsscommon.FieldValuePairs([
                                         (CHASSIS_INFO_SERIAL_FIELD, try_get(platform_chassis.get_serial)),
                                         (CHASSIS_INFO_MODEL_FIELD, try_get(platform_chassis.get_model)),
-                                        (CHASSIS_INFO_REV_FIELD, try_get(platform_chassis.get_revision))
+                                        (CHASSIS_INFO_REV_FIELD, try_get(platform_chassis.get_revision)),
+                                        (CHASSIS_INFO_SYS_DISPLAY_FIELD, try_get(platform_chassis.get_sys_display))
                                     ])
     chassis_table.set(CHASSIS_INFO_KEY_TEMPLATE.format(1), fvs)
     log.log_info("STATE_DB provisioned with chassis info.")
