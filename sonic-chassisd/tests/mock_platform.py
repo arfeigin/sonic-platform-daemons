@@ -32,7 +32,7 @@ class MockModule(MockDevice):
         self.midplane_access = False
         self.asic_list = asic_list
         self.module_serial = module_serial
- 
+
     def get_name(self):
         return self.module_name
 
@@ -88,6 +88,7 @@ class MockChassis:
         self.module_list = []
         self.midplane_supervisor_access = False
         self._is_smartswitch = False
+        self._display_name = 'N/A'
 
     def get_num_modules(self):
         return len(self.module_list)
@@ -113,6 +114,9 @@ class MockChassis:
 
     def get_model(self):
         return "Model A"
+
+    def get_sys_display(self):
+        return self._display_name
 
     def get_revision(self):
         return "Rev C"
@@ -162,7 +166,7 @@ class MockSmartSwitchChassis:
 
     def is_smartswitch(self):
         return self._is_smartswitch
- 
+
     def get_dataplane_state(self):
         raise NotImplementedError
 
