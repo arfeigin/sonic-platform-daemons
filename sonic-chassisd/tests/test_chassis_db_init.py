@@ -29,6 +29,7 @@ def test_provision_db():
     serial = "Serial No"
     model = "Model A"
     revision = "Rev C"
+    display_name = NOT_AVAILABLE
 
     chassis_table = provision_db(chassis, log)
 
@@ -38,3 +39,4 @@ def test_provision_db():
     assert serial == fvs[CHASSIS_INFO_SERIAL_FIELD]
     assert model == fvs[CHASSIS_INFO_MODEL_FIELD]
     assert revision == fvs[CHASSIS_INFO_REV_FIELD]
+    assert display_name == fvs[CHASSIS_INFO_REV_FIELD]
